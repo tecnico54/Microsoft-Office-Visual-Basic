@@ -1,0 +1,29 @@
+el titulo
+Dim num_paginas As Integer
+Dim num_doc As Integer
+Dim pag_inicial As Integer
+Dim pagina_final As Integer
+Dim URL As String
+Dim nombres As String
+
+num_paginas = InputBox("Ingrese el numero de paginas por documento")
+num_doc = InputBox("¿Cuantos documentos desea generar?")
+URL = InputBox("¿Donde desea crear los documentos?")
+nombres = InputBox("¿Que nombre tendran los Documentos?")
+pag_inicial = 1
+pagina_final = num_paginas
+
+For i = 1 To num_doc
+    ActiveDocument.ExportAsFixedFormat OutputFileName:= _
+        URL & "\" & nombres & i & ".pdf", ExportFormat:= _
+        wdExportFormatPDF, OpenAfterExport:=False, OptimizeFor:= _
+        wdExportOptimizeForPrint, Range:=wdExportFromTo, From:=pag_inicial, To:=pagina_final, Item:= _
+        wdExportDocumentContent, IncludeDocProps:=True, KeepIRM:=True, _
+        CreateBookmarks:=wdExportCreateNoBookmarks, DocStructureTags:=True, _
+        BitmapMissingFonts:=True, UseISO19005_1:=False
+    ChangeFileOpenDirectory URL
+    
+pag_inicial = pagina_final + 1
+pagina_final = pagina_final + num_paginas
+Next i
+el fin
